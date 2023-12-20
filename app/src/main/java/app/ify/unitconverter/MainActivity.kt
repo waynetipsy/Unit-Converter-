@@ -30,10 +30,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import app.ify.unitconverter.ui.theme.UnitConverterTheme
+import org.w3c.dom.Text
+import java.time.format.TextStyle
 import kotlin.math.roundToInt
 
 class MainActivity : ComponentActivity() {
@@ -68,6 +73,11 @@ fun UnitConverter() {
     val conversionFactor = remember { mutableStateOf(1.00) }
     val oConversionFactor = remember { mutableStateOf(1.00) }
 
+val customTextStyle = androidx.compose.ui.text.TextStyle(
+    fontFamily = FontFamily.Default,
+    fontSize = 16.sp,
+    color = Color.Red
+)
 
 
     fun convertUnits () {
@@ -84,7 +94,9 @@ fun UnitConverter() {
         horizontalAlignment = Alignment.CenterHorizontally
 
     ) {
-        Text("Unit Converter")
+        Text("Unit Converter",
+          style = customTextStyle
+        )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = inputValue,
@@ -163,7 +175,7 @@ fun UnitConverter() {
                         onClick = {
                             oExpanded = false
                             outputUnit = "Centimeters"
-                            conversionFactor.value = 0.01
+                            oConversionFactor.value = 0.01
                             convertUnits()
                         }
                     )
@@ -181,7 +193,7 @@ fun UnitConverter() {
                         onClick = {
                             oExpanded = false
                             outputUnit = "Feet"
-                            conversionFactor.value = 0.3048
+                            oConversionFactor.value = 0.3048
                             convertUnits()
                         }
                     )
@@ -190,7 +202,7 @@ fun UnitConverter() {
                         onClick = {
                             oExpanded = false
                             outputUnit = "Milimeters"
-                            conversionFactor.value = 0.001
+                            oConversionFactor.value = 0.001
                             convertUnits()
                         }
                     )
@@ -199,7 +211,9 @@ fun UnitConverter() {
         }
 
         Spacer(modifier = Modifier.height(16.dp))
-        Text("Result : $outputValue $outputUnit")
+        Text("Result : $outputValue $outputUnit",
+            style = MaterialTheme.typography.headlineMedium
+        )
     }
 }
 
